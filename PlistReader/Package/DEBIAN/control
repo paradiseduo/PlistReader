@@ -1,0 +1,11 @@
+Package: com.paradiseduo.plistreader
+Name: PlistReader
+Version: 1.0.0
+Description: Read app's plist file
+Section: Utilities
+Priority: optional
+Architecture: iphoneos-arm
+Author: ParadiseDuo
+Homepage: https://github.com/paradiseduo
+Maintainer: ParadiseDuo
+
