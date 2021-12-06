@@ -6,10 +6,17 @@
 //
 
 #import "AppDelegate.h"
+#import "BaseNavigationController.h"
 #import "ViewController.h"
+#import "CoreServices.h"
+#import "Model.h"
+
+__attribute__((weak))
+extern CGImageRef LICreateIconFromCachedBitmap(NSData* data);
 
 @interface AppDelegate ()
-
+@property (nonatomic, copy) NSMutableArray<Model *>* users;
+@property (nonatomic, copy) NSMutableArray<Model *>* systems;
 @end
 
 @implementation AppDelegate
@@ -19,12 +26,60 @@
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [[UINavigationBar appearance] setTranslucent:NO];
     
-    UINavigationController * nv = [[UINavigationController alloc] initWithRootViewController:[[ViewController alloc] init]];
-    self.window.rootViewController = nv;
+    [self prepareData];
+    
+    ViewController * v1 = [[ViewController alloc] init];
+    v1.tabBarItem.title = @"Users";
+    v1.tabBarItem.image = [UIImage imageNamed:@"U"];
+    v1.plistArray = _users;
+    
+    ViewController * v2 = [[ViewController alloc] init];
+    v2.tabBarItem.title = @"System";
+    v2.tabBarItem.image = [UIImage imageNamed:@"S"];
+    v2.plistArray = _systems;
+    
+    UITabBarController * tab = [[UITabBarController alloc] init];
+    tab.viewControllers = @[[[BaseNavigationController alloc] initWithRootViewController:v1], [[BaseNavigationController alloc] initWithRootViewController:v2]];
+    self.window.rootViewController = tab;
     [self.window makeKeyAndVisible];
     return YES;
 }
 
+- (void)prepareData {
+    _users = [[NSMutableArray alloc] init];
+    _systems = [[NSMutableArray alloc] init];
+    
+    id<LSApplicationWorkspaceProtocol> LSApplicationWorkspace = (id<LSApplicationWorkspaceProtocol>)NSClassFromString(@"LSApplicationWorkspace");
+    NSArray<id<LSApplicationProxyProtocol>>* installedApplications = [[LSApplicationWorkspace defaultWorkspace] allApplications];
 
+    for (int i = 0 ; i < installedApplications.count; ++i) {
+        id application = installedApplications[i];
+        
+        NSData *data = [application primaryIconDataForVariant:0x20];
+        CGImageRef imageRef = LICreateIconFromCachedBitmap(data);
+        CGFloat scale = [UIScreen mainScreen].scale;
+
+        id path = [application canonicalExecutablePath];
+        NSArray * arr = [path componentsSeparatedByString:@"/"];
+        NSMutableString * s = [[NSMutableString alloc] init];
+        for (int i = 1; i < arr.count-1; ++i) {
+            [s appendFormat:@"/%@", arr[i]];
+        }
+
+        Model * model = [[Model alloc] init];
+        model.name = [application localizedName];
+        model.bundleID = [application bundleIdentifier];
+        model.image = [[UIImage alloc] initWithCGImage:imageRef scale:scale orientation:UIImageOrientationUp];
+        model.plistPath = [NSString stringWithFormat:@"%@/Info.plist", s];
+        model.plist = [NSString stringWithFormat:@"%@", [[NSMutableDictionary alloc] initWithContentsOfFile:model.plistPath]];
+        model.hasIt = NO;
+        
+        if ([[application bundleIdentifier] containsString:@"com.apple"]) {
+            [_systems addObject:model];
+        } else {
+            [_users addObject:model];
+        }
+    }
+}
 
 @end

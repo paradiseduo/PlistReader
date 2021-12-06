@@ -27,6 +27,7 @@
 		8401307C2758ACAA00FC83E9 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 840130712758ACAA00FC83E9 /* MASViewAttribute.m */; };
 		840130802758B2F000FC83E9 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 8401307F2758B2F000FC83E9 /* Model.m */; };
 		840130832758C51000FC83E9 /* SuggestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840130822758C51000FC83E9 /* SuggestTableViewController.m */; };
+		84970C0D275E09C300ABF123 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84970C0C275E09C300ABF123 /* BaseNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,8 @@
 		8401307F2758B2F000FC83E9 /* Model.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
 		840130812758C51000FC83E9 /* SuggestTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuggestTableViewController.h; sourceTree = "<group>"; };
 		840130822758C51000FC83E9 /* SuggestTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuggestTableViewController.m; sourceTree = "<group>"; };
+		84970C0B275E09C300ABF123 /* BaseNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
+		84970C0C275E09C300ABF123 /* BaseNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,8 @@
 				84012FD22757A48600FC83E9 /* AppDelegate.m */,
 				84012FD72757A48600FC83E9 /* ViewController.h */,
 				84012FD82757A48600FC83E9 /* ViewController.m */,
+				84970C0B275E09C300ABF123 /* BaseNavigationController.h */,
+				84970C0C275E09C300ABF123 /* BaseNavigationController.m */,
 				840130812758C51000FC83E9 /* SuggestTableViewController.h */,
 				840130822758C51000FC83E9 /* SuggestTableViewController.m */,
 				8401307E2758B2F000FC83E9 /* Model.h */,
@@ -292,6 +297,7 @@
 				840130772758ACAA00FC83E9 /* MASLayoutConstraint.m in Sources */,
 				840130802758B2F000FC83E9 /* Model.m in Sources */,
 				84012FE42757A48700FC83E9 /* main.m in Sources */,
+				84970C0D275E09C300ABF123 /* BaseNavigationController.m in Sources */,
 				840130572758A2B400FC83E9 /* TableViewCell.m in Sources */,
 				8401307C2758ACAA00FC83E9 /* MASViewAttribute.m in Sources */,
 				840130782758ACAA00FC83E9 /* NSArray+MASAdditions.m in Sources */,

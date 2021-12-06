@@ -6,9 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Model.h"
 
 @interface ViewController : UIViewController
-
-
+@property (nonatomic, copy) NSMutableArray<Model *> * plistArray;
 @end
 

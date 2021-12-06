@@ -6,19 +6,13 @@
 //
 
 #import "ViewController.h"
-#import "CoreServices.h"
 #import "TableViewCell.h"
 #import "PlistViewController.h"
 #import "Masonry/Masonry.h"
-#import "Model.h"
 #import "SuggestTableViewController.h"
-
-__attribute__((weak))
-extern CGImageRef LICreateIconFromCachedBitmap(NSData* data);
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView * table;
-@property (nonatomic, copy) NSMutableArray<Model *> * plistArray;
 @property (nonatomic) BOOL showed;
 @end
 
@@ -27,7 +21,6 @@ extern CGImageRef LICreateIconFromCachedBitmap(NSData* data);
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _plistArray = [[NSMutableArray alloc] init];
     self.showed = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     UITableView * table = [[UITableView alloc] init];
@@ -43,42 +36,15 @@ extern CGImageRef LICreateIconFromCachedBitmap(NSData* data);
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(search)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(suggest)];
-    
-    [self prepareData];
 }
 
-- (void)prepareData {
-    id<LSApplicationWorkspaceProtocol> LSApplicationWorkspace = (id<LSApplicationWorkspaceProtocol>)NSClassFromString(@"LSApplicationWorkspace");
-    NSArray<id<LSApplicationProxyProtocol>>* installedApplications = [[LSApplicationWorkspace defaultWorkspace] allApplications];
-    
-    for (int i = 0 ; i < installedApplications.count; ++i) {
-        id application = installedApplications[i];
-        if ([[application bundleIdentifier] containsString:@"com.apple"]) {
-            continue;
-        } else {
-            NSData *data = [application primaryIconDataForVariant:0x20];
-            CGImageRef imageRef = LICreateIconFromCachedBitmap(data);
-            CGFloat scale = [UIScreen mainScreen].scale;
-            
-            id path = [application canonicalExecutablePath];
-            NSArray * arr = [path componentsSeparatedByString:@"/"];
-            NSMutableString * s = [[NSMutableString alloc] init];
-            for (int i = 1; i < arr.count-1; ++i) {
-                [s appendFormat:@"/%@", arr[i]];
-            }
-            
-            Model * model = [[Model alloc] init];
-            model.name = [application localizedName];
-            model.bundleID = [application bundleIdentifier];
-            model.image = [[UIImage alloc] initWithCGImage:imageRef scale:scale orientation:UIImageOrientationUp];
-            model.plistPath = [NSString stringWithFormat:@"%@/Info.plist", s];
-            model.plist = [NSString stringWithFormat:@"%@", [[NSMutableDictionary alloc] initWithContentsOfFile:model.plistPath]];
-            model.hasIt = NO;
-            
-            [_plistArray addObject:model];
-        }
-    }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.table reloadData];
+}
+
+- (void)setPlistArray:(NSMutableArray<Model *> *)plistArray {
+    _plistArray = [[NSMutableArray alloc] initWithArray:plistArray];
 }
 
 - (void)reloadWithSearch:(NSString *)item {
@@ -110,6 +76,9 @@ extern CGImageRef LICreateIconFromCachedBitmap(NSData* data);
     }]];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"search plist";
+        if ([[UIPasteboard generalPasteboard].string length] > 0) {
+            textField.text = [UIPasteboard generalPasteboard].string;
+        }
     }];
     [self presentViewController:alertController animated:true completion:nil];
 }
