@@ -16,7 +16,7 @@ Just download deb and install
 On Mac:
 ```bash
 ❯ iproxy 2222 22
-❯ cd PlistReader/Packages
+❯ wget https://github.com/paradiseduo/PlistReader/releases/download/1.3.0/com.paradiseduo.plistreader_1.3.0_iphoneos-arm.deb
 ❯ scp -P 2222 com.paradiseduo.plistreader_1.3.0_iphoneos-arm.deb root@127.0.0.1:/tmp
 ```
 On iPhone:
