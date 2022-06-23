@@ -71,7 +71,7 @@ extern CGImageRef LICreateIconFromCachedBitmap(NSData* data);
         model.bundleID = [application bundleIdentifier];
         model.image = [[UIImage alloc] initWithCGImage:imageRef scale:scale orientation:UIImageOrientationUp];
         model.plistPath = [NSString stringWithFormat:@"%@/Info.plist", s];
-        model.plist = [NSString stringWithFormat:@"%@", [[NSMutableDictionary alloc] initWithContentsOfFile:model.plistPath]];
+        model.plist = [NSString stringWithContentsOfFile:model.plistPath encoding:NSUTF8StringEncoding error:nil];
         model.hasIt = NO;
         
         if ([[application bundleIdentifier] containsString:@"com.apple"]) {
