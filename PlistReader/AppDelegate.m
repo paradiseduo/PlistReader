@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import "CoreServices.h"
 #import "Model.h"
+#import "NSObject+PrettyPrinted.h"
 
 __attribute__((weak))
 extern CGImageRef LICreateIconFromCachedBitmap(NSData* data);
@@ -71,7 +72,19 @@ extern CGImageRef LICreateIconFromCachedBitmap(NSData* data);
         model.bundleID = [application bundleIdentifier];
         model.image = [[UIImage alloc] initWithCGImage:imageRef scale:scale orientation:UIImageOrientationUp];
         model.plistPath = [NSString stringWithFormat:@"%@/Info.plist", s];
-        model.plist = [NSString stringWithContentsOfFile:model.plistPath encoding:NSUTF8StringEncoding error:nil];
+        NSError * err = nil;
+        NSString * pp = [NSString stringWithContentsOfFile:model.plistPath encoding:NSUTF8StringEncoding error:&err];
+        if (err != nil) {
+            NSString * p = [[NSDictionary dictionaryWithContentsOfFile:model.plistPath] pretty];
+            if (p.length > 0) {
+                model.plist = p;
+            } else {
+                model.plist = [NSString stringWithFormat:@"%@", [NSDictionary dictionaryWithContentsOfFile:model.plistPath]];
+            }
+        } else {
+            model.plist = pp;
+        }
+        model.containerPath = [[application containerURL] path];
         model.hasIt = NO;
         
         if ([[application bundleIdentifier] containsString:@"com.apple"]) {

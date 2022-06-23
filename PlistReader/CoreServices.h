@@ -19,6 +19,8 @@
 - (NSData*)primaryIconDataForVariant:(int)variant;
 - (NSString *)localizedName;
 - (NSString *)canonicalExecutablePath;
+- (NSURL *)containerURL;
+- (NSURL *)dataContainerURL;
 @end
 
 @protocol LSApplicationWorkspaceProtocol <NSObject>

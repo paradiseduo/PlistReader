@@ -10,3 +10,7 @@
 @implementation Model
 
 @end
+
+@implementation FileModel
+
+@end

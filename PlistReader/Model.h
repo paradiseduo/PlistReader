@@ -16,7 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIImage * image;
 @property (nonatomic, copy) NSString * plistPath;
 @property (nonatomic, copy) NSString * plist;
+@property (nonatomic, copy) NSString * containerPath;
 @property (nonatomic) BOOL hasIt;
+@end
+
+@interface FileModel : NSObject
+@property (nonatomic, copy) NSString * name;
+@property (nonatomic, copy) NSString * path;
 @end
 
 NS_ASSUME_NONNULL_END

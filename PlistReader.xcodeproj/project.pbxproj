@@ -27,6 +27,9 @@
 		8401307C2758ACAA00FC83E9 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 840130712758ACAA00FC83E9 /* MASViewAttribute.m */; };
 		840130802758B2F000FC83E9 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 8401307F2758B2F000FC83E9 /* Model.m */; };
 		840130832758C51000FC83E9 /* SuggestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840130822758C51000FC83E9 /* SuggestTableViewController.m */; };
+		8496338428640EFA0097BE56 /* PreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496338328640EFA0097BE56 /* PreferencesViewController.m */; };
+		84963387286414E50097BE56 /* UserDefaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84963386286414E50097BE56 /* UserDefaultViewController.m */; };
+		8496338A286418690097BE56 /* NSObject+PrettyPrinted.m in Sources */ = {isa = PBXBuildFile; fileRef = 84963389286418690097BE56 /* NSObject+PrettyPrinted.m */; };
 		84970C0D275E09C300ABF123 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84970C0C275E09C300ABF123 /* BaseNavigationController.m */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +83,12 @@
 		8401307F2758B2F000FC83E9 /* Model.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
 		840130812758C51000FC83E9 /* SuggestTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuggestTableViewController.h; sourceTree = "<group>"; };
 		840130822758C51000FC83E9 /* SuggestTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuggestTableViewController.m; sourceTree = "<group>"; };
+		8496338228640EFA0097BE56 /* PreferencesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreferencesViewController.h; sourceTree = "<group>"; };
+		8496338328640EFA0097BE56 /* PreferencesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreferencesViewController.m; sourceTree = "<group>"; };
+		84963385286414E50097BE56 /* UserDefaultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserDefaultViewController.h; sourceTree = "<group>"; };
+		84963386286414E50097BE56 /* UserDefaultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserDefaultViewController.m; sourceTree = "<group>"; };
+		84963388286418690097BE56 /* NSObject+PrettyPrinted.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+PrettyPrinted.h"; sourceTree = "<group>"; };
+		84963389286418690097BE56 /* NSObject+PrettyPrinted.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PrettyPrinted.m"; sourceTree = "<group>"; };
 		84970C0B275E09C300ABF123 /* BaseNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
 		84970C0C275E09C300ABF123 /* BaseNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,10 +135,16 @@
 				840130822758C51000FC83E9 /* SuggestTableViewController.m */,
 				8401307E2758B2F000FC83E9 /* Model.h */,
 				8401307F2758B2F000FC83E9 /* Model.m */,
+				84963388286418690097BE56 /* NSObject+PrettyPrinted.h */,
+				84963389286418690097BE56 /* NSObject+PrettyPrinted.m */,
 				840130552758A2B400FC83E9 /* TableViewCell.h */,
 				840130562758A2B400FC83E9 /* TableViewCell.m */,
 				8401305127589C5F00FC83E9 /* PlistViewController.h */,
 				8401305227589C5F00FC83E9 /* PlistViewController.m */,
+				8496338228640EFA0097BE56 /* PreferencesViewController.h */,
+				8496338328640EFA0097BE56 /* PreferencesViewController.m */,
+				84963385286414E50097BE56 /* UserDefaultViewController.h */,
+				84963386286414E50097BE56 /* UserDefaultViewController.m */,
 				8401305427589D5400FC83E9 /* CoreServices.h */,
 				840130582758ACAA00FC83E9 /* Masonry */,
 				84012FDA2757A48600FC83E9 /* Main.storyboard */,
@@ -301,12 +316,15 @@
 				840130572758A2B400FC83E9 /* TableViewCell.m in Sources */,
 				8401307C2758ACAA00FC83E9 /* MASViewAttribute.m in Sources */,
 				840130782758ACAA00FC83E9 /* NSArray+MASAdditions.m in Sources */,
+				8496338A286418690097BE56 /* NSObject+PrettyPrinted.m in Sources */,
+				8496338428640EFA0097BE56 /* PreferencesViewController.m in Sources */,
 				840130752758ACAA00FC83E9 /* MASCompositeConstraint.m in Sources */,
 				840130762758ACAA00FC83E9 /* MASConstraintMaker.m in Sources */,
 				840130792758ACAA00FC83E9 /* View+MASAdditions.m in Sources */,
 				840130742758ACAA00FC83E9 /* ViewController+MASAdditions.m in Sources */,
 				8401305327589C5F00FC83E9 /* PlistViewController.m in Sources */,
 				8401307B2758ACAA00FC83E9 /* MASViewConstraint.m in Sources */,
+				84963387286414E50097BE56 /* UserDefaultViewController.m in Sources */,
 				840130732758ACAA00FC83E9 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				8401307A2758ACAA00FC83E9 /* MASConstraint.m in Sources */,
 			);
