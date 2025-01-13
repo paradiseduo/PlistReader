@@ -27,6 +27,7 @@ On iPhone:
 ```
 
 Or use TrollStore
+
 On root iphone
 ```bash
 git clone https://github.com/paradiseduo/PlistReader.git
@@ -38,6 +39,7 @@ zip -r app.ipa Payload
 python3 -m http.server 8765
 Use TrollStore install from URL http://yourip:8765/app.ipa
 ```
+
 On rootless iphone
 ```bash
 git clone https://github.com/paradiseduo/PlistReader.git
@@ -48,6 +50,18 @@ mv PlistReader.app Payload
 zip -r app.ipa Payload
 python3 -m http.server 8765
 Use TrollStore install from URL http://yourip:8765/app.ipa
+```
+
+On rootless and install by root permission
+```bash
+git clone https://github.com/paradiseduo/PlistReader.git
+cd PlistReader
+ldid -Sroot.entitlements  ./PlistReader/Package/Applications/PlistReader.app/PlistReader
+zip PlistReader.app PlistReader.zip
+scp -P 22 PlistReader.zip mobile@10.152.102.24:/private/preboot/xxxxxx/dopamine-xxxxxx/procursus/tmp
+unzip PlistReader.zip
+mv PlistReader.app /private/preboot/xxxxxx/dopamine-xxxxxx/procursus/Applications
+uicache -a
 ```
 
 
