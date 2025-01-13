@@ -1,5 +1,5 @@
 # PlistReader
-An application can read other application's plist file.
+An application can read other application's plist file. Or Downgrade IPA 
 
 # Look At Me
 
