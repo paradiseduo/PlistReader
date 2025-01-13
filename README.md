@@ -27,6 +27,7 @@ On iPhone:
 ```
 
 Or use TrollStore
+On root iphone
 ```bash
 git clone https://github.com/paradiseduo/PlistReader.git
 cd PlistReader
@@ -37,6 +38,18 @@ zip -r app.ipa Payload
 python3 -m http.server 8765
 Use TrollStore install from URL http://yourip:8765/app.ipa
 ```
+On rootless iphone
+```bash
+git clone https://github.com/paradiseduo/PlistReader.git
+cd PlistReader
+ldid -Sstore.xml ./PlistReader/Package/Applications/PlistReader.app/PlistReader
+mkdir Payload
+mv PlistReader.app Payload
+zip -r app.ipa Payload
+python3 -m http.server 8765
+Use TrollStore install from URL http://yourip:8765/app.ipa
+```
+
 
 # Other
 You need an jailbreak iPhone or iPad device
