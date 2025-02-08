@@ -12,3 +12,7 @@
 @property (nonatomic, copy) NSMutableArray<Model *> * plistArray;
 @end
 
+@interface VersionViewController : UIViewController
+@property (nonatomic, copy) NSString * bundleID;
+@property (nonatomic, copy) NSString * nowVersion;
+@end
