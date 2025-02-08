@@ -3,13 +3,10 @@ An application can read other application's plist file. Or Downgrade IPA
 
 # Look At Me
 
-<img src="https://github.com/paradiseduo/PlistReader/blob/main/Image/1.PNG?raw=true" width="30%">
+<img src="https://github.com/paradiseduo/PlistReader/blob/main/Image/1.PNG?raw=true" width="25%"><img src="https://github.com/paradiseduo/PlistReader/blob/main/Image/4.PNG?raw=true" width="25%"><img src="https://github.com/paradiseduo/PlistReader/blob/main/Image/2.PNG?raw=true" width="25%"><img src="https://github.com/paradiseduo/PlistReader/blob/main/Image/3.PNG?raw=true" width="25%">
 
-<img src="https://github.com/paradiseduo/PlistReader/blob/main/Image/4.PNG?raw=true" width="30%">
+<img src="https://github.com/paradiseduo/PlistReader/blob/main/Image/5.jpg?raw=true" width="33%"><img src="https://github.com/paradiseduo/PlistReader/blob/main/Image/6.jpg?raw=true" width="33%"><img src="https://github.com/paradiseduo/PlistReader/blob/main/Image/7.jpg?raw=true" width="33%">
 
-<img src="https://github.com/paradiseduo/PlistReader/blob/main/Image/2.PNG?raw=true" width="30%">
-
-<img src="https://github.com/paradiseduo/PlistReader/blob/main/Image/3.PNG?raw=true" width="30%">
 
 # How to use
 Just download deb and install
