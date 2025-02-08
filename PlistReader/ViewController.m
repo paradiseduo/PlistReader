@@ -152,9 +152,78 @@
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewRowAction * download = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"历史版本" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        [self downloadAppShortcut:self->_plistArray[indexPath.row].bundleID];
+        VersionViewController * c = [[VersionViewController alloc] init];
+        c.bundleID = self->_plistArray[indexPath.row].bundleID;
+        c.nowVersion = [NSPropertyListSerialization propertyListWithData:[NSData dataWithContentsOfFile:self->_plistArray[indexPath.row].plistPath] options:NSPropertyListMutableContainersAndLeaves format:nil error:nil][@"CFBundleShortVersionString"];
+        [self.navigationController pushViewController:c animated:YES];
     }];
     return @[download];
+}
+@end
+
+
+@interface VersionViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) UITableView * table;
+@property (nonatomic, copy) NSMutableArray * versionList;
+@property (nonatomic, assign) long long appIde;
+@property (nonatomic) NSIndexPath * nowRow;
+@end
+
+@implementation VersionViewController
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
+    UITableView * table = [[UITableView alloc] init];
+    [self.view addSubview:table];
+    [table mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.bottom.equalTo(self.view);
+    }];
+    table.delegate = self;
+    table.dataSource = self;
+    self.table = table;
+    
+    self.navigationItem.title = @"Version List";
+    
+    [self downloadAppShortcut:_bundleID];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
+}
+
+- (void)refresh {
+    [self downloadAppShortcut:_bundleID];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 60;
+}
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    UITableViewCell * cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"VersionCellMe"];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", _versionList[indexPath.row][@"created_at"]];
+    NSString * bundle_version = [NSString stringWithFormat:@"%@", _versionList[indexPath.row][@"bundle_version"]];
+    if ([bundle_version isEqualToString:_nowVersion]) {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ (Now Version)", _versionList[indexPath.row][@"bundle_version"]];
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:17];
+        cell.textLabel.textColor = [UIColor greenColor];
+        cell.detailTextLabel.textColor = [UIColor greenColor];
+        cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:15];
+        _nowRow = indexPath;
+    } else {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@", _versionList[indexPath.row][@"bundle_version"]];
+        cell.textLabel.font = [UIFont systemFontOfSize:17];
+        cell.textLabel.textColor = [UIColor blackColor];
+        cell.detailTextLabel.textColor = [UIColor blackColor];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:15];
+    }
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _versionList.count;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self downloadAppWithAppId:_appIde versionId:[_versionList[indexPath.row][@"external_identifier"] longLongValue]];
 }
 
 - (void)downloadAppShortcut:(NSString *)bundleId {
@@ -187,6 +256,7 @@
 
 - (void)getAllAppVersionIdsAndPrompt:(long long)appId {
     dispatch_async(dispatch_get_main_queue(), ^{
+        self->_appIde = appId;
         UIAlertController* promptAlert = [UIAlertController alertControllerWithTitle:@"Version ID" message:@"Do you want to enter the version ID manually or request the list of version IDs from the server?" preferredStyle:UIAlertControllerStyleAlert];
         [promptAlert addAction:[UIAlertAction actionWithTitle:@"Manual" style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
             [self promptForVersionId:appId];
@@ -272,17 +342,12 @@
             });
             return;
         }
+        self->_versionList = [NSMutableArray arrayWithArray:versionIds];
         dispatch_async(dispatch_get_main_queue(), ^{
-            UIAlertController* versionAlert = [UIAlertController alertControllerWithTitle:@"Version ID" message:@"Select the version ID of the app you want to download" preferredStyle:UIAlertControllerStyleAlert];
-            for(NSDictionary* versionId in versionIds) {
-                UIAlertAction* versionAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", versionId[@"bundle_version"]] style:UIAlertActionStyleDefault handler:^(UIAlertAction* action) {
-                    [self downloadAppWithAppId:appId versionId:[versionId[@"external_identifier"] longLongValue]];
-                }];
-                [versionAlert addAction:versionAction];
-            }
-            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-            [versionAlert addAction:cancelAction];
-            [self presentViewController:versionAlert animated:YES completion:nil];
+            [self.table reloadData];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.table scrollToRowAtIndexPath:self->_nowRow atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            });
         });
     }];
     [task resume];
