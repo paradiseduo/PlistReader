@@ -41,7 +41,7 @@ On rootless iphone
 ```bash
 git clone https://github.com/paradiseduo/PlistReader.git
 cd PlistReader
-ldid -Sstore.xml ./PlistReader/Package/Applications/PlistReader.app/PlistReader
+ldid -Sstore.entitlements ./PlistReader/Package/Applications/PlistReader.app/PlistReader
 mkdir Payload
 mv PlistReader.app Payload
 zip -r app.ipa Payload
